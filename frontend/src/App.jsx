@@ -9,7 +9,7 @@ import './styles/global_styles.css';
 import Sidebar from './components/layout/Sidebar';
 import Navbar  from './components/layout/Navbar';
 
-// Pages
+// Pages — Lists
 import Login          from './pages/Login';
 import Dashboard      from './pages/Dashboard';
 import Budgets        from './pages/Budgets';
@@ -21,15 +21,29 @@ import GRN            from './pages/GRN';
 import Invoices       from './pages/Invoices';
 import Payments       from './pages/Payments';
 import AuditLog       from './pages/AuditLog';
+import FiscalYears    from './pages/FiscalYears';
+import Departments    from './pages/Departments';
+import Users          from './pages/Users';
 
-// Placeholder for detail / form pages not yet built
-const Placeholder = ({ title }) => (
-  <div style={{ padding: '60px 40px', textAlign: 'center', color: 'var(--gray-400)' }}>
-    <i className="bi bi-hammer" style={{ fontSize: '36px', display: 'block', marginBottom: '14px' }} />
-    <h3 style={{ fontSize: '15px', fontWeight: 600, color: 'var(--gray-600)' }}>{title}</h3>
-    <p style={{ fontSize: '12px', marginTop: '6px' }}>This page is under construction.</p>
-  </div>
-);
+// Pages — Detail
+import BudgetDetail       from './pages/BudgetDetail';
+import RequisitionDetail  from './pages/RequisitionDetail';
+import SupplierDetail     from './pages/SupplierDetail';
+import TenderDetail       from './pages/TenderDetail';
+import PODetail           from './pages/PODetail';
+import GRNDetail          from './pages/GRNDetail';
+import InvoiceDetail      from './pages/InvoiceDetail';
+import PaymentDetail      from './pages/PaymentDetail';
+
+// Pages — Forms (new / edit)
+import BudgetForm        from './pages/BudgetForm';
+import RequisitionForm   from './pages/RequisitionForm';
+import SupplierForm      from './pages/SupplierForm';
+import TenderForm        from './pages/TenderForm';
+import POForm            from './pages/POForm';
+import GRNForm           from './pages/GRNForm';
+import InvoiceForm       from './pages/InvoiceForm';
+import PaymentForm       from './pages/PaymentForm';
 
 // ─────────────────────────────────────────────
 // PROTECTED APP SHELL
@@ -78,62 +92,69 @@ function AppShell() {
       <div className={`main-content${collapsed ? ' sidebar-collapsed' : ''}`}>
         <Navbar />
         <Routes>
-          {/* Dashboard */}
-          <Route path="/"                      element={<Dashboard />} />
+          {/* ── Dashboard ───────────────────────────── */}
+          <Route path="/"                           element={<Dashboard />} />
 
-          {/* Budgets */}
-          <Route path="/budgets"               element={<Budgets />} />
-          <Route path="/budgets/new"           element={<Placeholder title="New Budget" />} />
-          <Route path="/budgets/:slug"         element={<Placeholder title="Budget Detail" />} />
+          {/* ── Fiscal Years ────────────────────────── */}
+          <Route path="/fiscal-years"               element={<FiscalYears />} />
 
-          {/* Fiscal Years */}
-          <Route path="/fiscal-years"          element={<Placeholder title="Fiscal Years" />} />
-          <Route path="/fiscal-years/new"      element={<Placeholder title="New Fiscal Year" />} />
+          {/* ── Budgets ─────────────────────────────── */}
+          <Route path="/budgets"                    element={<Budgets />} />
+          <Route path="/budgets/new"                element={<BudgetForm />} />
+          <Route path="/budgets/:slug"              element={<BudgetDetail />} />
+          <Route path="/budgets/:slug/edit"         element={<BudgetForm />} />
 
-          {/* Requisitions */}
-          <Route path="/requisitions"          element={<Requisitions />} />
-          <Route path="/requisitions/new"      element={<Placeholder title="New Requisition" />} />
-          <Route path="/requisitions/:slug"    element={<Placeholder title="Requisition Detail" />} />
+          {/* ── Requisitions ────────────────────────── */}
+          <Route path="/requisitions"               element={<Requisitions />} />
+          <Route path="/requisitions/new"           element={<RequisitionForm />} />
+          <Route path="/requisitions/:slug"         element={<RequisitionDetail />} />
+          <Route path="/requisitions/:slug/edit"    element={<RequisitionForm />} />
 
-          {/* Tenders */}
-          <Route path="/tenders"               element={<Tenders />} />
-          <Route path="/tenders/new"           element={<Placeholder title="New Tender" />} />
-          <Route path="/tenders/:slug"         element={<Placeholder title="Tender Detail" />} />
+          {/* ── Tenders ─────────────────────────────── */}
+          <Route path="/tenders"                    element={<Tenders />} />
+          <Route path="/tenders/new"                element={<TenderForm />} />
+          <Route path="/tenders/:slug"              element={<TenderDetail />} />
+          <Route path="/tenders/:slug/edit"         element={<TenderForm />} />
 
-          {/* Purchase Orders */}
-          <Route path="/purchase-orders"       element={<PurchaseOrders />} />
-          <Route path="/purchase-orders/new"   element={<Placeholder title="New Purchase Order" />} />
-          <Route path="/purchase-orders/:slug" element={<Placeholder title="PO Detail" />} />
+          {/* ── Purchase Orders ─────────────────────── */}
+          <Route path="/purchase-orders"            element={<PurchaseOrders />} />
+          <Route path="/purchase-orders/new"        element={<POForm />} />
+          <Route path="/purchase-orders/:slug"      element={<PODetail />} />
+          <Route path="/purchase-orders/:slug/edit" element={<POForm />} />
 
-          {/* GRN */}
-          <Route path="/grns"                  element={<GRN />} />
-          <Route path="/grns/new"              element={<Placeholder title="New GRN" />} />
-          <Route path="/grns/:slug"            element={<Placeholder title="GRN Detail" />} />
+          {/* ── GRNs ────────────────────────────────── */}
+          <Route path="/grns"                       element={<GRN />} />
+          <Route path="/grns/new"                   element={<GRNForm />} />
+          <Route path="/grns/:slug"                 element={<GRNDetail />} />
+          <Route path="/grns/:slug/edit"            element={<GRNForm />} />
 
-          {/* Invoices */}
-          <Route path="/invoices"              element={<Invoices />} />
-          <Route path="/invoices/new"          element={<Placeholder title="Record Invoice" />} />
-          <Route path="/invoices/:slug"        element={<Placeholder title="Invoice Detail" />} />
+          {/* ── Invoices ────────────────────────────── */}
+          <Route path="/invoices"                   element={<Invoices />} />
+          <Route path="/invoices/new"               element={<InvoiceForm />} />
+          <Route path="/invoices/:slug"             element={<InvoiceDetail />} />
+          <Route path="/invoices/:slug/edit"        element={<InvoiceForm />} />
 
-          {/* Payments */}
-          <Route path="/payments"              element={<Payments />} />
-          <Route path="/payments/new"          element={<Placeholder title="Record Payment" />} />
-          <Route path="/payments/:slug"        element={<Placeholder title="Payment Detail" />} />
+          {/* ── Payments ────────────────────────────── */}
+          <Route path="/payments"                   element={<Payments />} />
+          <Route path="/payments/new"               element={<PaymentForm />} />
+          <Route path="/payments/:slug"             element={<PaymentDetail />} />
+          <Route path="/payments/:slug/edit"        element={<PaymentForm />} />
 
-          {/* Suppliers */}
-          <Route path="/suppliers"             element={<Suppliers />} />
-          <Route path="/suppliers/new"         element={<Placeholder title="New Supplier" />} />
-          <Route path="/suppliers/:slug"       element={<Placeholder title="Supplier Detail" />} />
+          {/* ── Suppliers ───────────────────────────── */}
+          <Route path="/suppliers"                  element={<Suppliers />} />
+          <Route path="/suppliers/new"              element={<SupplierForm />} />
+          <Route path="/suppliers/:slug"            element={<SupplierDetail />} />
+          <Route path="/suppliers/:slug/edit"       element={<SupplierForm />} />
 
-          {/* Master Data */}
-          <Route path="/departments"           element={<Placeholder title="Departments" />} />
-          <Route path="/users"                 element={<Placeholder title="Users" />} />
+          {/* ── Master Data ─────────────────────────── */}
+          <Route path="/departments"                element={<Departments />} />
+          <Route path="/users"                      element={<Users />} />
 
-          {/* Audit */}
-          <Route path="/audit-log"             element={<AuditLog />} />
+          {/* ── Audit Log ───────────────────────────── */}
+          <Route path="/audit-log"                  element={<AuditLog />} />
 
-          {/* Fallback */}
-          <Route path="*"                      element={<Navigate to="/" replace />} />
+          {/* ── Fallback ────────────────────────────── */}
+          <Route path="*"                           element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </div>
